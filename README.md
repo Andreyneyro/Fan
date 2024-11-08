@@ -1,18 +1,24 @@
 Для запуска node backend/server.js
+----------------------
 Если ошибка 
+----------------------
 node:events:497
 throw er; // Unhandled 'error' event
 ^
+----------------------
 Это в консоль
-> netstat -ano | findstr :5000 
-вывод 
+> netstat -ano | findstr :5000
+----------------------
+вывод:
 PS C:\Users\Компьютер\Desktop\все сайты\Соц сеть> netstat -ano | findstr :5000
   TCP    0.0.0.0:5000           0.0.0.0:0              LISTENING       19044
   TCP    [::]:5000              [::]:0                 LISTENING       19044
+----------------------
 Это в консоль
 > taskkill /PID 19044 /F
 > *19044* это значение которое надо заменить на ваше оно пишется в конце
 > Снова запуск node backend/server.js
+----------------------
 
 
 
