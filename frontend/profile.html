@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Профиль - PostHub</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="profile-header">
+            <h2 id="username">Загрузка...</h2>
+            <button class="logout-btn" onclick="logout()">Выйти</button>
+        </div>
+        <div class="post-section">
+            <textarea id="postContent" placeholder="Напишите ваш пост..."></textarea>
+            <button onclick="submitPost()">Опубликовать</button>
+        </div>
+    </div>
+
+    <script>
+        function logout() {
+            document.cookie = 'token=; Max-Age=0; path=/;'; // Удаляем токен из куки
+            window.location.href = 'login.html';
+        }
+
+        async function getUserProfile() {
+            const token = getCookie('token');
+            if (!token) {
+                window.location.href = 'login.html'; // Если токен отсутствует, перенаправляем на страницу входа
+                return;
+            }
+
+            try {
+                const response = await fetch('http://localhost:5000/api/profile', {
+                    method: 'GET', // Явно указываем метод GET
+                    headers: { 
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                console.log('Response status:', response.status); // Логируем статус ответа
+
+                if (response.ok) {
+                    const userProfile = await response.json();
+                    console.log('User profile:', userProfile); // Логируем полученный профиль
+                    document.getElementById('username').textContent = userProfile.username;
+                } else {
+                    // Получаем текст ошибки
+                    const errorText = await response.text();
+                    console.error('Error details:', errorText);
+                    
+                    // Если токен недействителен, перенаправляем на страницу входа
+                    if (response.status === 401) {
+                        alert('Сессия истекла. Пожалуйста, войдите снова.');
+                        logout();
+                    } else {
+                        alert(`Не удалось загрузить профиль: ${errorText}`);
+                    }
+                }
+            } catch (error) {
+                console.error('Полная ошибка:', error);
+                alert('Произошла ошибка при загрузке профиля. Проверьте подключение к серверу.');
+            }
+        }
+
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+        }
+
+        async function submitPost() {
+            const token = getCookie('token');
+            const postContent = document.getElementById('postContent').value;
+
+            if (!token) {
+                alert('Вы должны быть авторизованы для публикации поста');
+                return;
+            }
+
+            try {
+                const response = await fetch('http://localhost:5000/api/posts', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ content: postContent })
+                });
+
+                if (response.ok) {
+                    alert('Пост успешно опубликован');
+                    document.getElementById('postContent').value = ''; // Очищаем поле ввода
+                } else {
+                    const errorText = await response.text();
+                    alert(`Не удалось опубликовать пост: ${errorText}`);
+                }
+            } catch (error) {
+                console.error('Ошибка:', error);
+                alert('Произошла ошибка при публикации поста');
+            }
+        }
+
+        async function getUserProfile() {
+            const token = getCookie('token');
+            if (!token) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            try {
+                const response = await fetch('http://localhost:5000/api/profile', {
+                    headers: { 
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (response.status === 401) {
+                    const data = await response.json();
+                    if (data.tokenExpired) {
+                        alert('Сессия истекла. Пожалуйста, войдите снова.');
+                        logout();
+                        return;
+                    }
+                }
+
+                // Остальная логика обработки ответа
+            } catch (error) {
+                console.error('Ошибка:', error);
+                logout();
+            }
+        }
+        const [username, setUsername] = useState('');
+
+        useEffect(() => {
+            const fetchUserData = async () => {
+                try {
+                    const response = await fetch('/api/user'); // Ваш API для получения данных пользователя
+                    const data = await response.json();
+                    setUsername(data.username); // Убедитесь, что здесь правильно указано поле
+                } catch (error) {
+                    console.error('Ошибка получения данных пользователя:', error);
+                }
+            };
+
+            fetchUserData();
+        }, []);
+
+        // Загружаем профиль при загрузке страницы
+        window.onload = getUserProfile;
+    </script>
+</body>
+</html>

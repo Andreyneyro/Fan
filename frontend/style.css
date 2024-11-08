@@ -1,0 +1,255 @@
+/* Общие стили для страницы */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #272727;
+}
+
+/* Контейнер для всей страницы */
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+}
+
+/* Стили для секции аутентификации */
+.auth-section {
+    width: 100%;
+    max-width: 400px; /* Максимальная ширина формы */
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Группы форм */
+.form-group {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+/* Поля ввода */
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 12px; /* Увеличенное внутреннее поле */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px; /* Увеличенный размер шрифта */
+}
+
+/* Кнопки */
+button {
+    width: 100%;
+    padding: 12px; /* Увеличенное внутреннее поле */
+    background-color: #ffffff; /* Цвет кнопки */
+    color: rgb(0, 0, 0); /* Цвет текста кнопки */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px; /* Увеличенный размер шрифта */
+    margin-top: 10px; /* Отступ сверху */
+    transition: background-color 0.3s; /* Плавный переход цвета */
+}
+
+button:hover {
+    background-color: #a7a7a7; /* Цвет кнопки при наведении */
+}
+
+/* Описание платформы */
+.platform-description {
+    max-width: 500px;
+    text-align: center;
+}
+
+/* Профиль пользователя */
+.user-profile {
+    position: absolute;
+    top: 20px;
+    right: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.user-profile img {
+    width: 40px;
+    height: 40px;
+}
+
+/* Кнопки аутентификации */
+.auth-buttons {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+/* Стили для кнопки выхода */
+.logout-btn {
+    background-color: #dc3545; /* Цвет кнопки выхода */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.logout-btn:hover {
+    background-color: #c82333; /* Цвет кнопки выхода при наведении */
+}
+
+/* Стили для ссылок */
+a {
+    color: #007bff;
+    text-decoration: none; /* Убирает подчеркивание */
+}
+
+
+/* Стили для ссылки на регистрацию/вход */
+.register-link {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 14px;
+    color: #6c757d;
+}
+
+/* Заголовок формы */
+.auth-section h2 {
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+}
+
+.profile-link {
+    margin-left: 10px; /* Отступ слева */
+    color: #007bff; /* Цвет текста ссылки */
+    text-decoration: none; /* Убираем подчеркивание */
+    font-weight: bold; /* Жирный шрифт */
+    transition: color 0.3s; /* Плавный переход цвета */
+}
+
+.profile-link:hover {
+    color: #0056b3; /* Цвет при наведении */
+    text-decoration: underline; /* Подчеркивание при наведении */
+}
+
+.userNickname {
+    font-size: 18px;
+}
+
+.bold {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.container-content {
+    border-color: #c9c9c9;
+    border-radius: 10px;
+    color: rgb(255, 255, 255);
+    width: 80vw;
+    background: #303030;
+    display: block;
+    z-index: 1000;
+    position: absolute;
+    top: 7vw;
+    left: 3vw;
+    box-shadow: inset 0 0 10px rgb(68, 68, 68); 
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.content {
+    border-radius: 20px;
+    background: #303030;
+    padding: 20px;
+    margin: 20px;
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    box-shadow: 0 0 10px rgb(68, 68, 68); 
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.content:hover {
+    background-color: #272727;
+    color: rgb(255, 255, 255);
+    transform: scale(1.002);
+    box-shadow: 0 0 10px rgb(37, 37, 37); 
+    text-decoration: none !important;
+}
+
+.logo {
+    color: white;
+    font-size: 35px;
+    text-decoration: none;
+    position: absolute;
+    left: 3vw;
+    top: -1vw;
+}
+
+
+a {
+    text-decoration: none !important;
+}
+
+footer {
+    position: relative;
+    top: 65vw;
+    background-color: rgb(255, 255, 255);
+    width: 100%;
+    height: 300px;
+}
+
+footer > .logo {
+    color: #272727;
+}
+
+.footer-img {
+    height: 150px;
+}
+
+.footer-info {
+    position: absolute;
+    left: 3vw;
+    top: 5vw;
+    font-size: 20px;
+}
+
+.left {
+    position: absolute;
+    left: 100%;
+    bottom: 10px;
+}
+
+.link {
+    position: relative; /* Для позиционирования псевдоэлемента */
+    display: inline-block; /* Чтобы элемент имел ширину по содержимому */
+    color: #007bff; /* Цвет текста */
+    text-decoration: none; /* Убираем подчеркивание */
+    overflow: hidden; /* Скрываем псевдоэлемент, если он выходит за пределы */
+    top: 3px;
+}
+
+.link::after {
+    content: ""; /* Псевдоэлемент без содержимого */
+    position: absolute; /* Абсолютное позиционирование */
+    bottom: -2px; /* Позиционируем снизу */
+    left: 0; /* Начинаем от левого края */
+    height: 4px; /* Высота "капли" */
+    width: 100%; /* Ширина по умолчанию */
+    background-color: rgba(0, 123, 255, 0.5); /* Цвет фона с прозрачностью */
+    transform: translateX(-100%); /* Скрываем "каплю" за пределами элемента */
+    transition: transform 0.3s ease; /* Плавный переход */
+}
+
+.link:hover::after {
+    transform: translateX(0); /* Перемещаем "каплю" на место при наведении */
+}

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Регистрация - PostHub</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="auth-section">
+            <h2>Регистрация в PostHub</h2>
+            <form id="registerForm">
+                <div class="form-group">
+                    <input type="text" id="username" placeholder="Введите логин" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="password" placeholder="Введите пароль" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="confirmPassword" placeholder="Подтвердите пароль" required>
+                </div>
+                <button type="submit">Зарегистрироваться</button>
+                <div class="register-link">
+                    Уже есть аккаунт? <a class="link" href="login.html">Войти</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            if (password !== confirmPassword) {
+                alert('Пароли не совпадают');
+                return;
+            }
+
+            try {
+                const response = await fetch('http://localhost:5000/api/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+
+                const responseText = await response.text();
+
+                if (response.ok) {
+                    alert('Пользователь успешно зарегистрирован');
+                    window.location.href = 'login.html';
+                } else {
+                    alert(responseText || 'Ошибка регистрации');
+                }
+            } catch (error) {
+                console.error('Ошибка:', error);
+                alert('Произошла ошибка при регистрации');
+            }
+        });
+
+    </script>
+</body>
+</html>
